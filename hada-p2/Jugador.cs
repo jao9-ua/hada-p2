@@ -75,13 +75,57 @@ namespace Hada
             this.puntos = puntos;
         }
 
+        public void incAmonestaciones()
+        {
+            Amonestaciones = Amonestaciones + rand.Next(0, 2); 
+        }
 
+        public void incFaltas()
+        {
+            Faltas = Faltas + rand.Next(0, 3);
+        }
 
+        public void decEnergia()
+        {
+            Energia = Energia - rand.Next(1, 7);
+        }
 
+        public void incPuntos()
+        {
+            puntos = puntos + rand.Next(0, 3);
+        }
 
+        public bool todoOk()
+        {
+            bool todoOkey=false;
+            if (amonestaciones <= maxAmonestaciones &&
+                energia>=minEnergia && faltas<=maxFaltas)
+            {
+                todoOkey = true;
+            }
 
+            return todoOkey;
+        }
 
+        public void mover()
+        {
+            if (todoOk())
+            {
+                incAmonestaciones();
+                incFaltas();
+                incPuntos();
+                decEnergia();
+            }
+        }
 
+        public override string ToString()
+        {
+            string salida;
+
+            salida = "[" + nombre + "]" + "Puntos: " + puntos + "; Amonestaciones: " + Amonestaciones + "; Faltas: " + Faltas + "; Energía: " + Energia + "%; Ok: " + todoOk();
+
+            return salida;
+        }
         public event EventHandler<AmonestacionesMaximoExcedidoArgs> amonestacionesMaximoExcedido;
         public event EventHandler<FaltasMaximoExcedidoArgs> faltasMaximoExcedido;
         public event EventHandler<EnergiaMinimaExcedidaArgs> energiaMinimaExcedida;
