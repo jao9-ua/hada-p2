@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E07C6EE2-0CF6-4B31-8207-5904F42289F8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>hada_p2</RootNamespace>
+    <RootNamespace>Hada</RootNamespace>
     <AssemblyName>hada-p2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Jugador.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
