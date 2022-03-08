@@ -129,5 +129,33 @@ namespace Hada
         public event EventHandler<AmonestacionesMaximoExcedidoArgs> amonestacionesMaximoExcedido;
         public event EventHandler<FaltasMaximoExcedidoArgs> faltasMaximoExcedido;
         public event EventHandler<EnergiaMinimaExcedidaArgs> energiaMinimaExcedida;
+
+        public class AmonestacionesMaximoExcedidoArgs: EventArgs
+        {
+            public int amonestaciones { get; set; }
+            public AmonestacionesMaximoExcedidoArgs(int numero)
+            {
+                amonestaciones = numero;
+            }
+        }
+
+        public class FaltasMaximoExcedidoArgs: EventArgs
+        {
+            public int faltas { get; set; }
+
+            public FaltasMaximoExcedidoArgs(int faltnum)
+            {
+                faltas = faltnum;
+            }
+        }
+        public class EnergiaMinimaExcedidaArgs: EventArgs
+        {
+            public int energia { get; set; }
+
+            public EnergiaMinimaExcedidaArgs(int enernum)
+            {
+                energia = enernum;
+            }
+        }
     }
 }
