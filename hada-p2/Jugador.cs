@@ -8,9 +8,9 @@ namespace Hada
 {
     class Jugador
     {
-        private int Amonestaciones;
-        private int Faltas;
-        private int Energia;
+        private int _amonestaciones;
+        private int _faltas;
+        private int _energia;
 
         public static int maxAmonestaciones { get; set; }
         public static int maxFaltas { get; set; }
@@ -22,46 +22,46 @@ namespace Hada
 
         private int amonestaciones
         {
-            get { return Amonestaciones; }
+            get { return _amonestaciones; }
             set { 
                 if (value < 0)
                 {
-                    Amonestaciones = 0;
+                    _amonestaciones = 0;
                 }
-                else Amonestaciones = value;
-                if (Amonestaciones > maxAmonestaciones)
+                else _amonestaciones = value;
+                if (_amonestaciones > maxAmonestaciones)
                 {
-                    amonestacionesMaximoExcedido(this, new AmonestacionesMaximoExcedidoArgs(Amonestaciones));
+                    amonestacionesMaximoExcedido(this, new AmonestacionesMaximoExcedidoArgs(_amonestaciones));
                 }
                     }
         }
         private int faltas
         {
-            get { return Faltas; }
+            get { return _faltas; }
             set
             {
                 if (value > maxFaltas)
                 {
-                    faltasMaximoExcedido(this, new FaltasMaximoExcedidoArgs(Faltas));
+                    faltasMaximoExcedido(this, new FaltasMaximoExcedidoArgs(_faltas));
                 }
             }
         }
         private int energia
         {
-            get { return Energia; }
+            get { return _energia; }
             set
             {
                 if (value < 0)
                 {
-                    Energia = 0;
+                    _energia = 0;
                 }
                 else if (value > 100)
                 {
-                    Energia = 100;
-                } else Energia = value;
-                if (Energia < minEnergia)
+                    _energia = 100;
+                } else _energia = value;
+                if (_energia < minEnergia)
                 {
-                    energiaMinimaExcedida(this, new energiaMinimaExcedidaArgs(Energia));
+                    energiaMinimaExcedida(this, new EnergiaMinimaExcedidaArgs(_energia));
                 }
             }
         }
@@ -77,17 +77,17 @@ namespace Hada
 
         public void incAmonestaciones()
         {
-            Amonestaciones = Amonestaciones + rand.Next(0, 2); 
+            _amonestaciones = _amonestaciones + rand.Next(0, 2); 
         }
 
         public void incFaltas()
         {
-            Faltas = Faltas + rand.Next(0, 3);
+            _faltas = _faltas + rand.Next(0, 3);
         }
 
         public void decEnergia()
         {
-            Energia = Energia - rand.Next(1, 7);
+            _energia = _energia - rand.Next(1, 7);
         }
 
         public void incPuntos()
@@ -122,7 +122,7 @@ namespace Hada
         {
             string salida;
 
-            salida = "[" + nombre + "]" + "Puntos: " + puntos + "; Amonestaciones: " + Amonestaciones + "; Faltas: " + Faltas + "; Energía: " + Energia + "%; Ok: " + todoOk();
+            salida = "[" + nombre + "]" + "Puntos: " + puntos + "; Amonestaciones: " + _amonestaciones + "; Faltas: " + _faltas + "; Energía: " + _energia + "%; Ok: " + todoOk();
 
             return salida;
         }
