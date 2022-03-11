@@ -14,8 +14,8 @@ namespace Hada
 
         public static int maxAmonestaciones { get; set; }
         public static int maxFaltas { get; set; }
-        public static int minEnergia { get; set;}
-        public static Random rand { private get; set;}
+        public static int minEnergia { get; set; }
+        public static Random rand { private get; set; }
 
         public string nombre { get; private set; }
         public int puntos { get; set; }
@@ -23,7 +23,7 @@ namespace Hada
         private int amonestaciones
         {
             get { return _amonestaciones; }
-            set { 
+            set {
                 if (value < 0)
                 {
                     _amonestaciones = 0;
@@ -33,7 +33,7 @@ namespace Hada
                 {
                     amonestacionesMaximoExcedido(this, new AmonestacionesMaximoExcedidoArgs(_amonestaciones));
                 }
-                    }
+            }
         }
         private int faltas
         {
@@ -77,7 +77,7 @@ namespace Hada
 
         public void incAmonestaciones()
         {
-            _amonestaciones = _amonestaciones + rand.Next(0, 2); 
+            _amonestaciones = _amonestaciones + rand.Next(0, 2);
         }
 
         public void incFaltas()
@@ -97,9 +97,9 @@ namespace Hada
 
         public bool todoOk()
         {
-            bool todoOkey=false;
+            bool todoOkey = false;
             if (amonestaciones <= maxAmonestaciones &&
-                energia>=minEnergia && faltas<=maxFaltas)
+                energia >= minEnergia && faltas <= maxFaltas)
             {
                 todoOkey = true;
             }
@@ -129,33 +129,34 @@ namespace Hada
         public event EventHandler<AmonestacionesMaximoExcedidoArgs> amonestacionesMaximoExcedido;
         public event EventHandler<FaltasMaximoExcedidoArgs> faltasMaximoExcedido;
         public event EventHandler<EnergiaMinimaExcedidaArgs> energiaMinimaExcedida;
+    }
 
-        public class AmonestacionesMaximoExcedidoArgs: EventArgs
+    public class AmonestacionesMaximoExcedidoArgs: EventArgs
+    {
+        public int amonestaciones { get; set; }
+        public AmonestacionesMaximoExcedidoArgs(int numero)
         {
-            public int amonestaciones { get; set; }
-            public AmonestacionesMaximoExcedidoArgs(int numero)
-            {
-                amonestaciones = numero;
-            }
-        }
-
-        public class FaltasMaximoExcedidoArgs: EventArgs
-        {
-            public int faltas { get; set; }
-
-            public FaltasMaximoExcedidoArgs(int faltnum)
-            {
-                faltas = faltnum;
-            }
-        }
-        public class EnergiaMinimaExcedidaArgs: EventArgs
-        {
-            public int energia { get; set; }
-
-            public EnergiaMinimaExcedidaArgs(int enernum)
-            {
-                energia = enernum;
-            }
+            amonestaciones = numero;
         }
     }
+
+    public class FaltasMaximoExcedidoArgs: EventArgs
+    {
+        public int faltas { get; set; }
+
+        public FaltasMaximoExcedidoArgs(int faltnum)
+        {
+            faltas = faltnum;
+        }
+    }
+    public class EnergiaMinimaExcedidaArgs: EventArgs
+    {
+        public int energia { get; set; }
+
+        public EnergiaMinimaExcedidaArgs(int enernum)
+        {
+            energia = enernum;
+        }
+    }
+
 }

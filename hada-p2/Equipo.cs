@@ -24,8 +24,11 @@ namespace Hada
         {
             nombreEquipo = nom;
             equip = new List<Jugador>();
+            ExcdLimiteAm = new List<Jugador>();
+            ExcdLimiteFa = new List<Jugador>();
+            ExcdMinimEn = new List<Jugador>();
 
-            for(int i = 0; i < nj; i++)
+            for (int i = 0; i < nj; i++)
             {
                 equip.Add(new Jugador("Jugador_" + i, 0, 0, 50, 0));
             }
@@ -92,7 +95,64 @@ namespace Hada
             return ExcdMinimEn;
         }
 
+        public override string ToString()
+        {
+            string salida;
+
+            salida = "[EQUIPO_" + nombreEquipo + "]" + " Puntos: " + sumarPuntos() + ";";
+            salida += " Expulsados: " + getJugadoresExcedenLimiteFaltas().Count();
+            salida +=   "; Retirados: " + getJugadoresExcedenMinimoEnergia().Count()+ "\n" ;
+
+            for (int i = 0; i < equip.Count(); i++)
+            {
+                salida += equip[i].ToString() + "\n";
+            }
 
 
+
+            return salida;
+        }
+
+        private void cuandoAmonestacionesMaximoExcedido(object sender, AmonestacionesMaximoExcedidoArgs evento)
+        {
+            Jugador jugador = (Jugador)sender;
+
+            if (ExcdLimiteAm.Contains(jugador) == false)
+            {
+                ExcdLimiteAm.Add(jugador);
+            }
+            Console.WriteLine("¡¡Número máximo excedido de amonestaciones. Jugador expulsado!!");
+            Console.WriteLine("Jugador: " + jugador.nombre);
+            Console.WriteLine("Equipo: " + "equipo_" + nombreEquipo );
+            Console.WriteLine("Amonestaciones: " + evento.amonestaciones);
+        }
+
+        private void cuandoFaltasMaximoExcedido(object sender, FaltasMaximoExcedidoArgs evento)
+        {
+            Jugador jugador = (Jugador)sender;
+
+            if (ExcdLimiteFa.Contains(jugador) == false)
+            {
+                ExcdLimiteFa.Add(jugador);
+            }
+            Console.WriteLine("¡¡Número máximo excedido de faltas recibidas. Jugador lesionado!!");
+            Console.WriteLine("Jugador: " + jugador.nombre);
+            Console.WriteLine("Equipo: " + "equipo_" + nombreEquipo);
+            Console.WriteLine("Faltas: " + evento.faltas);
+        }
+
+        private void cuandoEnergiaMinimaExcedida(object sender, EnergiaMinimaExcedidaArgs evento)
+        {
+            Jugador jugador = (Jugador)sender;
+
+            if (ExcdMinimEn.Contains(jugador) == false)
+            {
+                ExcdMinimEn.Add(jugador);
+            }
+            Console.WriteLine("¡¡Energía mínima excedida. Jugador retirado!!");
+            Console.WriteLine("Jugador: " + jugador.nombre);
+            Console.WriteLine("Equipo: " + "equipo_" + nombreEquipo);
+            Console.WriteLine("Energía: " + evento.energia + " %");
+        }
     }
 }
